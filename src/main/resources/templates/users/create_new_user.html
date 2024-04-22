@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new user</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<!--
+ form:
+ action - то куда посылаем данные.
+ object - сюда ключ объекта, переданного в модель.
+
+ input:
+ field - поле объекта модели подставляемое в тег <input>.
+ -->
+<div class="centralization">
+    <div class="create_block">
+        <form th:method="POST" th:action="@{/users}" th:object="${user}">
+            <label>Enter your name:
+                <input type="text" th:field="*{name}">
+                <div class="validate_block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name invalid</div>
+            </label>
+            <br/>
+            <button type="submit" class="sumbit">Создать пользователя.</button>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>

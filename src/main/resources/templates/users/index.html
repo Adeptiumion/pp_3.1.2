@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Show all users</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div th:each="user : ${users}" class="centralization">
+    <a th:href="@{/users/user_by_id(id=${user.getId()})}" class="link">
+        <div class="user_block" th:text="${user.getName()}">
+        </div>
+    </a>
+</div>
+<div class="centralization">
+    <a th:href="@{/users/create_user}" class="link">
+        <div class="sumbit_block">
+            Создать нового пользователя
+        </div>
+    </a>
+</div>
+<form th:method="POST" th:action="@{/users/truncate_all}">
+    <div class="centralization">
+        <button class="sumbit_block" type="submit">Очистить базу данных</button>
+    </div>
+</form>
+</body>
+</html>
