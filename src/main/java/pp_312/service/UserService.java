@@ -6,6 +6,7 @@ import pp_312.dao.UserDao;
 import pp_312.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -32,17 +33,24 @@ public class UserService {
     }
 
     @Transactional
-    public void update(int id,User updatedUser) {
-        userDao.update(id, updatedUser);
-
+    public void update(int id, User updatedUser) {
+        if (userIsDetected(id))
+            userDao.update(id, updatedUser);
     }
+
     @Transactional
     public void delete(int id) {
-        userDao.delete(id);
+        if (userIsDetected(id))
+            userDao.delete(id);
     }
 
     @Transactional
-    public void truncateAll(){
+    public void truncateAll() {
         userDao.truncateAll();
+    }
+
+
+    public boolean userIsDetected(int id) {
+        return Optional.ofNullable(userDao.readOne(id)).isPresent();
     }
 }
